@@ -3,31 +3,31 @@
 Build with:
 > ./gradlew clean build
 
-###Step 1
+### Step 1
 Register as a developer at Spotify: https://developer.spotify.com/dashboard/applications
 
 Fill in the spotify.clientId and spotify.clientSecret in the properties file:
 build/bin/application.properties
 
-###Step 2
+### Step 2
 Create a custom slack integration (bot): https://[YOUR_SLACK_DOMAIN].slack.com/apps/manage/custom-integrations
 
 Fill in the slack.authToken in the properties file:
 build/bin/application.properties
 
-###Step 3
+### Step 3
 Create a slack channel and add your newly created bot to it.
 
 Fill in the slack.channel in the properties file:
 build/bin/application.properties
 
-###Step 4
+### Step 4
 Create a directory build/bin/sound_effects and fill it with your favorite sound effects. Only mp3 supported!
 
-###Step 4b (optional)
+### Step 4b (optional)
 You can also automatically play sound effects on certain messages in channels the bot has joined. Take a look at the 'Auto sounds' section in the application.properties file if you want this.
 
-###Step 5
+### Step 5
 Start the application:
 > java -jar slack-spotify-jukebox-0.0.1-SNAPSHOT.jar
 
