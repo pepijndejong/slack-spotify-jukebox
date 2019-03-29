@@ -1,0 +1,11 @@
+Take it easy %s!
+Don't rush it %s!
+Are you in a hurry %s?
+Back off %s!
+Get to work %s!
+No no no no no %s!
+If only you would work this hard %s...
+I'm all alone here %s, don't push me!
+Try again in a minute %s!
+Give me a break %s!
+Wahnsinn %s!
