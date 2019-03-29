@@ -6,9 +6,9 @@ Build with:
 Go to the build/bin directory, there add your properties:
 ```
 ## Port config, should match the spotify.redirectUrl
-server.port=8080
+server.port=8081
 ## Spotify config
-## Register here: https://developer.spotify.com/web-api/
+## Register here: https://developer.spotify.com/dashboard/applications
 ## to get your clientId and clientSecret
 spotify.clientId=
 spotify.clientSecret=
