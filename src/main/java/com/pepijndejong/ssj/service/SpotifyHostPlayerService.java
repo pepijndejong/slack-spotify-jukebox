@@ -29,6 +29,11 @@ public class SpotifyHostPlayerService {
     }
 
     public void playDefaultPlayList() {
+        boolean onShuffle = getSpotifyPlayer().getState().isOnShuffle();
+        if (!onShuffle) {
+            log.info("Player is not on shuffle, enabling it first...");
+            getSpotifyPlayer().enableShuffle();
+        }
         final String defaultPlayList = playerStateService.getDefaultPlayList();
         playPlaylist(defaultPlayList);
         playerStateService.setDefaultPlayListCurrentPlaylist();

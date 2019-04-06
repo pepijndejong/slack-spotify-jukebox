@@ -14,6 +14,10 @@ public class PlayerPlayingState {
         return playerStateResponse.getIsPlaying();
     }
 
+    public boolean isOnShuffle() {
+        return playerStateResponse.getShuffleState();
+    }
+
     public String getFullTrackTitle() {
         final String name = playerStateResponse.getItem().getName();
         final String artist = playerStateResponse.getItem().getArtists().get(0).getName();
