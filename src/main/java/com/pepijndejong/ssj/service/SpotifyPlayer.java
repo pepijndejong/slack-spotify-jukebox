@@ -61,6 +61,19 @@ public class SpotifyPlayer {
         return new PlayerPlayingState(playerStateResponse);
     }
 
+    public void enableShuffle() {
+        final Request request = createAuthorizedRequest("/v1/me/player/shuffle?state=true")
+                .put(RequestBody.create(MediaType.parse("application/json"),
+                        ""))
+                .build();
+
+        try {
+            doRequest(request);
+        } catch (SpotifyApiCallFailedException e) {
+            log.warn("Failed to enable shuffle on the Spotify player.");
+        }
+    }
+
     public void adjustVolume(final int level) {
         final String payload = String.format("volume_percent=%s", level);
 
