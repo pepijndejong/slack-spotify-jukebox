@@ -2,6 +2,7 @@ package com.pepijndejong.ssj.service;
 
 import com.pepijndejong.ssj.domain.PlayerPlayingState;
 import com.pepijndejong.ssj.service.exception.SpotifyApiCallFailedException;
+import com.pepijndejong.ssj.service.exception.SpotifyPlayerNotRunningException;
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,9 @@ public class HostPlayerStatusPoller {
 
                 lastTrackId = trackId;
             }
+        } catch (SpotifyPlayerNotRunningException e) {
+            handleSpotifyPlayerNotRunning();
+            scheduleNextPoll(INITIAL_DELAY_IN_MILLIS, startEventId);
         } catch (RuntimeException e) {
             log.error("Error while polling status.", e);
             scheduleNextPoll(INITIAL_DELAY_IN_MILLIS, startEventId);
@@ -136,9 +140,24 @@ public class HostPlayerStatusPoller {
 
         try {
             spotifyHostPlayerService.playDefaultPlayList();
+            scheduleNextPoll(AFTER_PLAY_DELAY_IN_MILLIS, activeStartEventId);
         } catch (SpotifyApiCallFailedException e) {
-            log.error("Failed to start...");
+            log.error("Failed to start, will try again in 5 seconds.");
+            scheduleNextPoll(INITIAL_DELAY_IN_MILLIS, activeStartEventId);
+        } catch (SpotifyPlayerNotRunningException e) {
+            handleSpotifyPlayerNotRunning();
+            scheduleNextPoll(INITIAL_DELAY_IN_MILLIS, activeStartEventId);
         }
-        scheduleNextPoll(AFTER_PLAY_DELAY_IN_MILLIS, activeStartEventId);
+    }
+
+    private void handleSpotifyPlayerNotRunning() {
+        try {
+            log.error("It seems like the Spotify player is not running.");
+            slackService.sendMessage(new SlackPreparedMessage.Builder()
+                    .withMessage("It seems like your Spotify player is not running. Make sure it is playing a song (any song). Will try again in 5 seconds...")
+                    .build());
+        } catch (RuntimeException e) {
+            log.error("Could not send error message to Slack :-(", e);
+        }
     }
 }

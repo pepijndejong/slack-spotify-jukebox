@@ -9,6 +9,8 @@ Register as a developer at Spotify: https://developer.spotify.com/dashboard/appl
 Fill in the spotify.clientId and spotify.clientSecret in the properties file:
 build/bin/application.properties
 
+Also make sure the spotify.redirectUrl in the application.properties file is registered in the Spotify developer portal under 'Redirect URIs'.
+
 ### Step 2
 Create a custom slack integration (bot): https://[YOUR_SLACK_DOMAIN].slack.com/apps/manage/custom-integrations
 
@@ -23,6 +25,8 @@ build/bin/application.properties
 
 ### Step 4
 Create a directory build/bin/sound_effects and fill it with your favorite sound effects. Only mp3 supported!
+
+Note: The used MP3 library does not seem to work on OpenJDK.
 
 ### Step 4b (optional)
 You can also automatically play sound effects on certain messages in channels the bot has joined. Take a look at the 'Auto sounds' section in the application.properties file if you want this.
